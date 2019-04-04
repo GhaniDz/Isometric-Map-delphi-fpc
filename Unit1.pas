@@ -1,10 +1,14 @@
+// -------------------------------------------------
+//   Isometric map demo / staggered and diamond
+//--------------------------------------------------
+
 unit Unit1;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, jpeg, ExtCtrls, StdCtrls;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics,
+  Controls, Forms,Dialogs, jpeg, ExtCtrls, StdCtrls;
 
 type
 
@@ -12,11 +16,11 @@ type
 
   TForm1 = class(TForm)
     image1: TImage;
-    btn2: TButton;
-    Button1: TButton;
+    btnDiamond: TButton;
+    btnStaggered: TButton;
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure btn2Click(Sender: TObject);
+    procedure btnStaggeredClick(Sender: TObject);
+    procedure btnDiamondClick(Sender: TObject);
   private
     Tile: TBitmap;
     offsetX, offsetY: integer;   // X Y offsets to center map on screen
@@ -49,8 +53,9 @@ begin
             Y := Tile.Height * j + offsetY
          else
             Y := Tile.Height * j + Tile.Height div 2 + offsetY;
+         // Render tile
          Canvas.Draw(X, Y, Tile);
-         //Write tile cordinates
+         // Render tile's x,y coordinates on top of tile
          Canvas.TextOut(x+20, y+10, IntToStr(i)+','+IntToStr(j));
          sleep(50);
        end;
@@ -64,8 +69,9 @@ begin
        begin
           X := (i - j) * (Tile.Width div 2) + offsetX;
           Y := (i + j) * (Tile.Height div 2) + offsetY;
+          // Render tile
           Canvas.Draw(x , y, Tile);
-          //Write tile cordinates
+          // Render tile's x,y coordinates on top of tile
           Canvas.TextOut(x + 20, y + 10, IntToStr(i)+','+IntToStr(j));
           sleep(50);
        end;
@@ -81,19 +87,19 @@ begin
   Tile := image1.Picture.Bitmap;
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.btnStaggeredClick(Sender: TObject);
 begin
  // Clear form canvas
  PatBlt(Canvas.Handle, 0, 0, ClientWidth, ClientHeight,BLACKNESS);
- // Draw staggered map
+ // Draw a 14x8 tiles staggered map
  RenderMap(14, 8, Tile, STAGGERED);
 end;
 
-procedure TForm1.btn2Click(Sender: TObject);
+procedure TForm1.btnDiamondClick(Sender: TObject);
 begin
  // Clear form canvas
  PatBlt(Canvas.Handle, 0, 0, ClientWidth, ClientHeight,BLACKNESS);
- // Draw diamond map
+ // Draw a 10x10 tiles diamond map
   RenderMap(10, 10, Tile, DIAMOND);
 end;
 
