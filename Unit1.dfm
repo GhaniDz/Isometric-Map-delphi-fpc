@@ -260,22 +260,22 @@ object Form1: TForm1
     Transparent = True
     Visible = False
   end
-  object btn2: TButton
+  object btnDiamond: TButton
     Left = 128
     Top = 8
     Width = 96
     Height = 25
     Caption = 'Diamond Map'
     TabOrder = 0
-    OnClick = btn2Click
+    OnClick = btnDiamondClick
   end
-  object Button1: TButton
+  object btnStaggered: TButton
     Left = 8
     Top = 8
     Width = 96
     Height = 25
     Caption = 'Staggered Map'
     TabOrder = 1
-    OnClick = Button1Click
+    OnClick = btnStaggeredClick
   end
 end
